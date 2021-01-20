@@ -1086,7 +1086,7 @@ export default class Minimap {
    * @param  {Object} changes a change to dispatch
    * @access private
    */
-  emitChanges(changes: {}) {
+  emitChanges(changes: Record<string, any>) {
     this.emitter.emit("did-change", changes)
   }
 

@@ -21,7 +21,7 @@ export default class Decoration {
    * @param  {string} type the decoration type to match
    * @return {boolean} whether the decoration properties match the type
    */
-  static isType(decorationProperties: {}, type: string): boolean {
+  static isType(decorationProperties: Record<string, any>, type: string): boolean {
     if (Array.isArray(decorationProperties.type)) {
       if (decorationProperties.type.indexOf(type) >= 0) {
         return true
@@ -40,7 +40,7 @@ export default class Decoration {
    *                           be displayed
    * @param  {Object} properties the decoration's properties
    */
-  constructor(marker: Marker, minimap: Minimap, properties: {}) {
+  constructor(marker: Marker, minimap: Minimap, properties: Record<string, any>) {
     /**
      * @access private
      */
@@ -119,7 +119,7 @@ export default class Decoration {
    *                                        when the event is triggered
    * @return {Disposable} a disposable to stop listening to the event
    */
-  onDidChangeProperties(callback: (change: {}) => void): Disposable {
+  onDidChangeProperties(callback: (change: Record<string, any>) => void): Disposable {
     return this.emitter.on("did-change-properties", callback)
   }
 
@@ -170,7 +170,7 @@ export default class Decoration {
    *
    * @return {Object} the decoration's properties
    */
-  getProperties(): {} {
+  getProperties(): Record<string, any> {
     return this.properties
   }
 
@@ -180,7 +180,7 @@ export default class Decoration {
    *
    * @param {Object} newProperties the new properties for the decoration
    */
-  setProperties(newProperties: {}) {
+  setProperties(newProperties: Record<string, any>) {
     if (this.destroyed) {
       return
     }

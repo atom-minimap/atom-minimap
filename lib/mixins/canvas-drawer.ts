@@ -818,7 +818,7 @@ const frontDecorationDispatcher = {
  * @param {string} decorationColor decoration color
  * @access private
  */
-function drawLineDecoration(decoration: Decoration, data: {}, decorationColor: string) {
+function drawLineDecoration(decoration: Decoration, data: Record<string, any>, decorationColor: string) {
   const { context, lineHeight, canvasWidth, yRow } = data
 
   context.fillStyle = decorationColor
@@ -833,7 +833,7 @@ function drawLineDecoration(decoration: Decoration, data: {}, decorationColor: s
  * @param {string} decorationColor decoration color
  * @access private
  */
-function drawGutterDecoration(decoration: Decoration, data: {}, decorationColor: string) {
+function drawGutterDecoration(decoration: Decoration, data: Record<string, any>, decorationColor: string) {
   const { context, lineHeight, yRow } = data
 
   context.fillStyle = decorationColor
@@ -851,7 +851,7 @@ function drawGutterDecoration(decoration: Decoration, data: {}, decorationColor:
  * @param {string} decorationColor decoration color
  * @access private
  */
-function drawHighlightDecoration(decoration: Decoration, data: {}, decorationColor: string) {
+function drawHighlightDecoration(decoration: Decoration, data: Record<string, any>, decorationColor: string) {
   const { context, lineHeight, charWidth, canvasWidth, screenRow, yRow } = data
 
   const range = decoration.getMarker().getScreenRange()
@@ -883,7 +883,7 @@ function drawHighlightDecoration(decoration: Decoration, data: {}, decorationCol
  * @param {string} decorationColor decoration color
  * @access private
  */
-function drawHighlightOutlineDecoration(decoration: Decoration, data: {}, decorationColor: string) {
+function drawHighlightOutlineDecoration(decoration: Decoration, data: Record<string, any>, decorationColor: string) {
   const { context, lineHeight, charWidth, canvasWidth, screenRow, yRow } = data
 
   let bottomWidth, colSpan, width, xBottomStart, xEnd, xStart
@@ -968,7 +968,7 @@ function drawHighlightOutlineDecoration(decoration: Decoration, data: {}, decora
  */
 function drawCustomDecoration(
   decoration: Decoration,
-  data: {},
+  data: Record<string, any>,
   decorationColor: string,
   editorElement: TextEditorElement
 ) {
@@ -997,9 +997,9 @@ function drawCustomDecoration(
  */
 function drawDecorations(
   screenRow: number,
-  decorations: {},
-  renderData: {},
-  types: {},
+  decorations: Record<string, any>,
+  renderData: Record<string, any>,
+  types: Record<string, any>,
   editorElement: TextEditorElement
 ) {
   let decorationsToRender = []
@@ -1061,7 +1061,7 @@ function drawFrontDecorationsForLines(
   firstRow: number,
   lastRow: number,
   offsetRow: number,
-  renderData: {},
+  renderData: Record<string, any>,
   lineHeight: number,
   editorElement: TextEditorElement,
   decorations: Array<Decoration>
@@ -1102,7 +1102,7 @@ function drawBackDecorationsForLines(
   firstRow: number,
   lastRow: number,
   offsetRow: number,
-  renderData: {},
+  renderData: Record<string, any>,
   lineHeight: number,
   editorElement: TextEditorElement,
   decorations: Array<Decoration>

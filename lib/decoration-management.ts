@@ -236,7 +236,7 @@ export default class DecorationManagement {
    *                                    highlight-outine decorations at a given
    *                                    row
    */
-  decorationsByTypeThenRows(): {} {
+  decorationsByTypeThenRows(): Record<string, any> {
     if (this.decorationsByTypeThenRowsCache != null) {
       return this.decorationsByTypeThenRowsCache
     }
@@ -481,7 +481,7 @@ export default class DecorationManagement {
    *                                change object
    * @access private
    */
-  emitRangeChanges(type: string, range: {}, screenDelta) {
+  emitRangeChanges(type: string, range: Record<string, any>, screenDelta) {
     const startScreenRow = range.start.row
     const endScreenRow = range.end.row
     const lastRenderedScreenRow = this.minimap.getLastVisibleScreenRow()

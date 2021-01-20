@@ -1410,7 +1410,7 @@ function extractTouchEventData(touchEvent: TouchEvent) {
  * @param  {Object} styles the styles to apply
  * @access private
  */
-function applyStyles(element: HTMLElement, styles: {}) {
+function applyStyles(element: HTMLElement, styles: Record<string, any>) {
   if (!element) {
     return
   }

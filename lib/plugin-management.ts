@@ -34,7 +34,7 @@ export const plugins = {}
  * @type {Object}
  * @access private
  */
-const pluginsSubscriptions: {} = {}
+const pluginsSubscriptions: Record<string, any> = {}
 
 /**
  * A map that stores the display order for each plugin
@@ -42,7 +42,7 @@ const pluginsSubscriptions: {} = {}
  * @type {Object}
  * @access private
  */
-const pluginsOrderMap: {} = {}
+const pluginsOrderMap: Record<string, any> = {}
 
 /**
  * Registers a minimap `plugin` with the given `name`.
