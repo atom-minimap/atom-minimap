@@ -21,7 +21,7 @@ export default class Decoration {
    * @param  {string} type the decoration type to match
    * @return {boolean} whether the decoration properties match the type
    */
-  static isType(decorationProperties: {  }, type: string): boolean {
+  static isType(decorationProperties: {}, type: string): boolean {
     if (Array.isArray(decorationProperties.type)) {
       if (decorationProperties.type.indexOf(type) >= 0) {
         return true
@@ -40,33 +40,39 @@ export default class Decoration {
    *                           be displayed
    * @param  {Object} properties the decoration's properties
    */
-  constructor(marker: Marker, minimap: Minimap, properties: {  }) {
+  constructor(marker: Marker, minimap: Minimap, properties: {}) {
     /**
      * @access private
      */
     this.marker = marker
+
     /**
      * @access private
      */
     this.minimap = minimap
+
     /**
      * @access private
      */
     this.emitter = new Emitter()
+
     /**
      * @access private
      */
     this.id = nextId()
+
     /**
      * @access private
      */
     this.properties = null
     this.setProperties(properties)
     this.properties.id = this.id
+
     /**
      * @access private
      */
     this.destroyed = false
+
     /**
      * @access private
      */
@@ -174,7 +180,7 @@ export default class Decoration {
    *
    * @param {Object} newProperties the new properties for the decoration
    */
-  setProperties(newProperties: {  }) {
+  setProperties(newProperties: {}) {
     if (this.destroyed) {
       return
     }

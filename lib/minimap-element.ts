@@ -88,6 +88,7 @@ class MinimapElement {
      * @access private
      */
     this.width = undefined
+
     /**
      * @access private
      */
@@ -99,18 +100,22 @@ class MinimapElement {
      * @access private
      */
     this.subscriptions = new CompositeDisposable()
+
     /**
      * @access private
      */
     this.visibleAreaSubscription = undefined
+
     /**
      * @access private
      */
     this.quickSettingsSubscription = undefined
+
     /**
      * @access private
      */
     this.dragSubscription = undefined
+
     /**
      * @access private
      */
@@ -122,34 +127,42 @@ class MinimapElement {
      * @access private
      */
     this.displayMinimapOnLeft = false
+
     /**
      * @access private
      */
     this.minimapScrollIndicator = undefined
+
     /**
      * @access private
      */
     this.displayMinimapOnLeft = undefined
+
     /**
      * @access private
      */
     this.displayPluginsControls = undefined
+
     /**
      * @access private
      */
     this.textOpacity = undefined
+
     /**
      * @access private
      */
     this.displayCodeHighlights = undefined
+
     /**
      * @access private
      */
     this.adjustToSoftWrap = undefined
+
     /**
      * @access private
      */
     this.useHardwareAcceleration = undefined
+
     /**
      * @access private
      */
@@ -161,18 +174,22 @@ class MinimapElement {
      * @access private
      */
     this.visibleArea = undefined
+
     /**
      * @access private
      */
     this.controls = undefined
+
     /**
      * @access private
      */
     this.scrollIndicator = undefined
+
     /**
      * @access private
      */
     this.openQuickSettings = undefined
+
     /**
      * @access private
      */
@@ -186,14 +203,17 @@ class MinimapElement {
      * @access private
      */
     this.attached = undefined
+
     /**
      * @access private
      */
     this.attachedToTextEditor = undefined
+
     /**
      * @access private
      */
     this.standAlone = undefined
+
     /**
      * @access private
      */
@@ -205,14 +225,17 @@ class MinimapElement {
      * @access private
      */
     this.offscreenFirstRow = undefined
+
     /**
      * @access private
      */
     this.offscreenLastRow = undefined
+
     /**
      * @access private
      */
     this.frameRequested = undefined
+
     /**
      * @access private
      */
@@ -228,7 +251,6 @@ class MinimapElement {
         this.updateMinimapFlexPosition()
         this.measureHeightAndWidth(true, true)
       }),
-
       atom.config.observe("minimap.minimapScrollIndicator", (minimapScrollIndicator) => {
         this.minimapScrollIndicator = minimapScrollIndicator
 
@@ -242,7 +264,6 @@ class MinimapElement {
           this.requestUpdate()
         }
       }),
-
       atom.config.observe("minimap.displayPluginsControls", (displayPluginsControls) => {
         this.displayPluginsControls = displayPluginsControls
 
@@ -252,7 +273,6 @@ class MinimapElement {
           this.disposeOpenQuickSettings()
         }
       }),
-
       atom.config.observe("minimap.textOpacity", (textOpacity) => {
         this.textOpacity = textOpacity
 
@@ -260,7 +280,6 @@ class MinimapElement {
           this.requestForcedUpdate()
         }
       }),
-
       atom.config.observe("minimap.displayCodeHighlights", (displayCodeHighlights) => {
         this.displayCodeHighlights = displayCodeHighlights
 
@@ -268,7 +287,6 @@ class MinimapElement {
           this.requestForcedUpdate()
         }
       }),
-
       atom.config.observe("minimap.smoothScrolling", (smoothScrolling) => {
         this.smoothScrolling = smoothScrolling
 
@@ -282,7 +300,6 @@ class MinimapElement {
           }
         }
       }),
-
       atom.config.observe("minimap.adjustMinimapWidthToSoftWrap", (adjustToSoftWrap) => {
         this.adjustToSoftWrap = adjustToSoftWrap
 
@@ -290,7 +307,6 @@ class MinimapElement {
           this.measureHeightAndWidth()
         }
       }),
-
       atom.config.observe("minimap.adjustMinimapWidthOnlyIfSmaller", (adjustOnlyIfSmaller) => {
         this.adjustOnlyIfSmaller = adjustOnlyIfSmaller
 
@@ -298,7 +314,6 @@ class MinimapElement {
           this.measureHeightAndWidth()
         }
       }),
-
       atom.config.observe("minimap.useHardwareAcceleration", (useHardwareAcceleration) => {
         this.useHardwareAcceleration = useHardwareAcceleration
 
@@ -306,13 +321,11 @@ class MinimapElement {
           this.requestUpdate()
         }
       }),
-
       atom.config.observe("minimap.absoluteMode", (absoluteMode) => {
         this.absoluteMode = absoluteMode
 
         this.classList.toggle("absolute", this.absoluteMode)
       }),
-
       atom.config.observe("minimap.adjustAbsoluteModeHeight", (adjustAbsoluteModeHeight) => {
         this.adjustAbsoluteModeHeight = adjustAbsoluteModeHeight
 
@@ -322,7 +335,6 @@ class MinimapElement {
           this.measureHeightAndWidth()
         }
       }),
-
       atom.config.observe("minimap.ignoreWhitespacesInTokens", (ignoreWhitespacesInTokens) => {
         this.ignoreWhitespacesInTokens = ignoreWhitespacesInTokens
 
@@ -330,31 +342,26 @@ class MinimapElement {
           this.requestForcedUpdate()
         }
       }),
-
       atom.config.observe("editor.preferredLineLength", () => {
         if (this.attached) {
           this.measureHeightAndWidth()
         }
       }),
-
       atom.config.observe("editor.softWrap", () => {
         if (this.attached) {
           this.requestUpdate()
         }
       }),
-
       atom.config.observe("editor.showInvisibles", () => {
         if (this.attached) {
           this.requestUpdate()
         }
       }),
-
       atom.config.observe("editor.invisibles", () => {
         if (this.attached) {
           this.requestUpdate()
         }
       }),
-
       atom.config.observe("editor.softWrapAtPreferredLineLength", () => {
         if (this.attached) {
           this.requestUpdate()
@@ -546,7 +553,6 @@ class MinimapElement {
         },
         { passive: true }
       ),
-
       this.subscribeTo(
         this.getFrontCanvas(),
         {
@@ -770,31 +776,25 @@ class MinimapElement {
       this.minimap.onDidChangeScrollTop(() => {
         this.requestUpdate()
       }),
-
       this.minimap.onDidChangeScrollLeft(() => {
         this.requestUpdate()
       }),
-
       this.minimap.onDidDestroy(() => {
         this.destroy()
       }),
-
       this.minimap.onDidChangeConfig(() => {
         if (this.attached) {
           return this.requestForcedUpdate()
         }
       }),
-
       this.minimap.onDidChangeStandAlone(() => {
         this.setStandAlone(this.minimap.isStandAlone())
         this.requestUpdate()
       }),
-
       this.minimap.onDidChange((change) => {
         this.pendingChanges.push(change)
         this.requestUpdate()
       }),
-
       this.DecorationManagement.onDidChangeDecorationRange((change) => {
         const { type } = change
         if (type === "line" || type === "highlight-under" || type === "background-custom") {
@@ -804,7 +804,6 @@ class MinimapElement {
         }
         this.requestUpdate()
       }),
-
       Main.onDidChangePluginOrder(() => {
         this.requestForcedUpdate()
       })
@@ -1411,7 +1410,7 @@ function extractTouchEventData(touchEvent: TouchEvent) {
  * @param  {Object} styles the styles to apply
  * @access private
  */
-function applyStyles(element: HTMLElement, styles: {  }) {
+function applyStyles(element: HTMLElement, styles: {}) {
   if (!element) {
     return
   }
@@ -1469,7 +1468,7 @@ function makeScale(x = 0, y = x, useHardwareAcceleration = false): string {
  * @param  {[type]} param.step the easing function for the animation
  * @access private
  */
-function animate({ from, to, duration, step }: { duration: [type], from: [type], step: [type], to: [type] }) {
+function animate({ from, to, duration, step }: { duration: [type]; from: [type]; step: [type]; to: [type] }) {
   const start = getTime()
   let progress
 

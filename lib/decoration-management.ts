@@ -36,12 +36,14 @@ export default class DecorationManagement {
      * @access private
      */
     this.decorationsById = new Map()
+
     /**
      * The decorations stored in an array indexed with their marker id.
      * @type {Object}
      * @access private
      */
     this.decorationsByMarkerId = new Map()
+
     /**
      * The subscriptions to the markers `did-change` event indexed using the
      * marker id.
@@ -49,6 +51,7 @@ export default class DecorationManagement {
      * @access private
      */
     this.decorationMarkerChangedSubscriptions = new Map()
+
     /**
      * The subscriptions to the markers `did-destroy` event indexed using the
      * marker id.
@@ -56,6 +59,7 @@ export default class DecorationManagement {
      * @access private
      */
     this.decorationMarkerDestroyedSubscriptions = new Map()
+
     /**
      * The subscriptions to the decorations `did-change-properties` event
      * indexed using the decoration id.
@@ -63,6 +67,7 @@ export default class DecorationManagement {
      * @access private
      */
     this.decorationUpdatedSubscriptions = new Map()
+
     /**
      * The subscriptions to the decorations `did-destroy` event indexed using
      * the decoration id.
@@ -96,7 +101,7 @@ export default class DecorationManagement {
    * - decoration: the decoration object that was created
    * @return {Disposable} a disposable to stop listening to the event
    */
-  onDidAddDecoration(callback: (event:Object) => void): Disposable {
+  onDidAddDecoration(callback: (event: { [key: string]: any }) => void): Disposable {
     return this.emitter.on("did-add-decoration", callback)
   }
 
@@ -112,7 +117,7 @@ export default class DecorationManagement {
    * - decoration: the decoration object that was created
    * @return {Disposable} a disposable to stop listening to the event
    */
-  onDidRemoveDecoration(callback: (event:Object) => void): Disposable {
+  onDidRemoveDecoration(callback: (event: { [key: string]: any }) => void): Disposable {
     return this.emitter.on("did-remove-decoration", callback)
   }
 
@@ -131,7 +136,7 @@ export default class DecorationManagement {
    * - decoration: the decoration object that was created
    * @return {Disposable} a disposable to stop listening to the event
    */
-  onDidChangeDecoration(callback: (event:Object) => void): Disposable {
+  onDidChangeDecoration(callback: (event: { [key: string]: any }) => void): Disposable {
     return this.emitter.on("did-change-decoration", callback)
   }
 
@@ -150,7 +155,7 @@ export default class DecorationManagement {
    * - decoration: the decoration object that was created
    * @return {Disposable} a disposable to stop listening to the event
    */
-  onDidChangeDecorationRange(callback: (event:Object) => void): Disposable {
+  onDidChangeDecorationRange(callback: (event: { [key: string]: any }) => void): Disposable {
     return this.emitter.on("did-change-decoration-range", callback)
   }
 
@@ -476,7 +481,7 @@ export default class DecorationManagement {
    *                                change object
    * @access private
    */
-  emitRangeChanges(type: string, range: {  }, screenDelta) {
+  emitRangeChanges(type: string, range: {}, screenDelta) {
     const startScreenRow = range.start.row
     const endScreenRow = range.end.row
     const lastRenderedScreenRow = this.minimap.getLastVisibleScreenRow()

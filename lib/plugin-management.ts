@@ -18,7 +18,6 @@ import { emitter, getConfigSchema } from "./main"
  *
  * @access public
  */
-
 // Initialize the properties for plugin management.
 
 /**
@@ -28,6 +27,7 @@ import { emitter, getConfigSchema } from "./main"
  * @access private
  */
 export const plugins = {}
+
 /**
  * The plugins' subscriptions stored using the plugin names as keys.
  *

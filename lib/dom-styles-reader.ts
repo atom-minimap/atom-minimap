@@ -29,6 +29,7 @@ export default class DOMStylesReader {
      * @access private
      * unused
      */
+
     // this.hasTokenizedOnce = false
   }
 
@@ -129,6 +130,7 @@ export default class DOMStylesReader {
    * @access private
    * unused
    */
+
   /*
   invalidateIfFirstTokenization () {
     if (this.hasTokenizedOnce) { return }
@@ -164,7 +166,6 @@ function rotateHue(value: string, filter: string): string {
   let [, , r, g, b, , a] = match
 
   let [, hue] = filter.match(hueRegexp)
-
   ;[r, g, b, a, hue] = [r, g, b, a, hue].map(Number)
   ;[r, g, b] = rotate(r, g, b, hue)
 

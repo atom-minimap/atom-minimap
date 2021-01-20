@@ -26,6 +26,7 @@ export { default as Minimap } from "./minimap"
  * @access private
  */
 let active: boolean = false
+
 /**
  * The toggle state of the package.
  *
@@ -33,6 +34,7 @@ let active: boolean = false
  * @access private
  */
 let toggled: boolean = false
+
 /**
  * The `Map` where Minimap instances are stored with the text editor they
  * target as key.
@@ -41,6 +43,7 @@ let toggled: boolean = false
  * @access private
  */
 export let editorsMinimaps = null
+
 /**
  * The composite disposable that stores the package's subscriptions.
  *
@@ -48,6 +51,7 @@ export let editorsMinimaps = null
  * @access private
  */
 let subscriptions: CompositeDisposable = null
+
 /**
  * The disposable that stores the package's commands subscription.
  *
@@ -404,8 +408,7 @@ function initSubscriptions() {
 
       emitter.emit("did-create-minimap", minimap)
       minimapElement.attach(textEditor.getElement())
-    }),
-    // empty color cache if the theme changes
+    }), // empty color cache if the theme changes
     atom.themes.onDidChangeActiveThemes(() => {
       domStylesReader.invalidateDOMStylesCache()
       editorsMinimaps.forEach((minimap) => {

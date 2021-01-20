@@ -28,6 +28,7 @@ export default class CanvasLayer {
      * @access private
      */
     this.offscreenCanvas = document.createElement("canvas")
+
     /**
      * The offscreen canvas context.
      * @type {CanvasRenderingContext2D}

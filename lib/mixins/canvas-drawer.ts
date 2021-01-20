@@ -42,11 +42,13 @@ export default class CanvasDrawer extends Mixin {
      * @type {CanvasLayer}
      */
     this.tokensLayer = new CanvasLayer()
+
     /**
      * The canvas layer for decorations below the text.
      * @type {CanvasLayer}
      */
     this.backLayer = new CanvasLayer()
+
     /**
      * The canvas layer for decorations above the text.
      * @type {CanvasLayer}
@@ -218,6 +220,7 @@ export default class CanvasDrawer extends Mixin {
      * @access private
      */
     this.offscreenFirstRow = firstRow
+
     /**
      * The last row in the last render of the offscreen canvas.
      * @type {number}
@@ -245,6 +248,7 @@ export default class CanvasDrawer extends Mixin {
    * @access private
    * Unused (inlined the code for performance reasons)
    */
+
   // redrawRangesOnLayer (layer, intactRanges, firstRow, lastRow, method) {
   //   const devicePixelRatio = this.minimap.getDevicePixelRatio()
   //   const lineHeight = this.minimap.getLineHeight() * devicePixelRatio
@@ -281,6 +285,7 @@ export default class CanvasDrawer extends Mixin {
    * @access private
    * Unused (inlined the code for performance reasons)
    */
+
   // drawLinesForRanges (method, ranges, firstRow, lastRow) {
   //   let currentRow = firstRow
   //   for (let i = 0, len = ranges.length; i < len; i++) {
@@ -618,7 +623,16 @@ const oneOrMoreWhiteSpaceRegexp = /\s+/
  * @return {number} the x position at the end of the token
  * @access private
  */
-function drawToken(context: CanvasRenderingContext2D, text: string, color: string, x: number, y: number, charWidth: number, charHeight: number, ignoreWhitespacesInTokens): number {
+function drawToken(
+  context: CanvasRenderingContext2D,
+  text: string,
+  color: string,
+  x: number,
+  y: number,
+  charWidth: number,
+  charHeight: number,
+  ignoreWhitespacesInTokens
+): number {
   context.fillStyle = color
 
   if (ignoreWhitespacesInTokens) {
@@ -804,7 +818,7 @@ const frontDecorationDispatcher = {
  * @param {string} decorationColor decoration color
  * @access private
  */
-function drawLineDecoration(decoration: Decoration, data: {  }, decorationColor: string) {
+function drawLineDecoration(decoration: Decoration, data: {}, decorationColor: string) {
   const { context, lineHeight, canvasWidth, yRow } = data
 
   context.fillStyle = decorationColor
@@ -819,7 +833,7 @@ function drawLineDecoration(decoration: Decoration, data: {  }, decorationColor:
  * @param {string} decorationColor decoration color
  * @access private
  */
-function drawGutterDecoration(decoration: Decoration, data: {  }, decorationColor: string) {
+function drawGutterDecoration(decoration: Decoration, data: {}, decorationColor: string) {
   const { context, lineHeight, yRow } = data
 
   context.fillStyle = decorationColor
@@ -837,7 +851,7 @@ function drawGutterDecoration(decoration: Decoration, data: {  }, decorationColo
  * @param {string} decorationColor decoration color
  * @access private
  */
-function drawHighlightDecoration(decoration: Decoration, data: {  }, decorationColor: string) {
+function drawHighlightDecoration(decoration: Decoration, data: {}, decorationColor: string) {
   const { context, lineHeight, charWidth, canvasWidth, screenRow, yRow } = data
 
   const range = decoration.getMarker().getScreenRange()
@@ -869,7 +883,7 @@ function drawHighlightDecoration(decoration: Decoration, data: {  }, decorationC
  * @param {string} decorationColor decoration color
  * @access private
  */
-function drawHighlightOutlineDecoration(decoration: Decoration, data: {  }, decorationColor: string) {
+function drawHighlightOutlineDecoration(decoration: Decoration, data: {}, decorationColor: string) {
   const { context, lineHeight, charWidth, canvasWidth, screenRow, yRow } = data
 
   let bottomWidth, colSpan, width, xBottomStart, xEnd, xStart
@@ -952,7 +966,12 @@ function drawHighlightOutlineDecoration(decoration: Decoration, data: {  }, deco
  * @param {TextEditorElement} editorElement
  * @access private
  */
-function drawCustomDecoration(decoration: Decoration, data: {  }, decorationColor: string, editorElement: TextEditorElement) {
+function drawCustomDecoration(
+  decoration: Decoration,
+  data: {},
+  decorationColor: string,
+  editorElement: TextEditorElement
+) {
   const renderRoutine = decoration.getProperties().render
 
   if (renderRoutine) {
@@ -976,7 +995,13 @@ function drawCustomDecoration(decoration: Decoration, data: {  }, decorationColo
  * @param {TextEditorElement} editorElement
  * @access private
  */
-function drawDecorations(screenRow: number, decorations: {  }, renderData: {  }, types: {  }, editorElement: TextEditorElement) {
+function drawDecorations(
+  screenRow: number,
+  decorations: {},
+  renderData: {},
+  types: {},
+  editorElement: TextEditorElement
+) {
   let decorationsToRender = []
 
   renderData.context.clearRect(0, renderData.yRow, renderData.canvasWidth, renderData.lineHeight)
@@ -994,7 +1019,12 @@ function drawDecorations(screenRow: number, decorations: {  }, renderData: {  },
       const decoration = decorationsToRender[i]
       const decorationDrawer = types[decoration.properties.type]
       if (!SPEC_MODE) {
-        decorationDrawer(decoration, renderData, /* decorationColor */ getDecorationColor(decoration, editorElement))
+        decorationDrawer(
+          decoration,
+          renderData,
+          /* decorationColor */
+          getDecorationColor(decoration, editorElement)
+        )
       } else {
         // get the real function name from the mangeld Parcel names
         const functionName = decorationDrawer.name.split("$").pop().replace("Lambda", "")
@@ -1002,7 +1032,8 @@ function drawDecorations(screenRow: number, decorations: {  }, renderData: {  },
         thisSpec[functionName](
           decoration,
           renderData,
-          /* decorationColor */ getDecorationColor(decoration, editorElement)
+          /* decorationColor */
+          getDecorationColor(decoration, editorElement)
         )
       }
     }
@@ -1030,7 +1061,7 @@ function drawFrontDecorationsForLines(
   firstRow: number,
   lastRow: number,
   offsetRow: number,
-  renderData: {  },
+  renderData: {},
   lineHeight: number,
   editorElement: TextEditorElement,
   decorations: Array<Decoration>
@@ -1067,7 +1098,15 @@ function drawFrontDecorationsForLines(
  * @param {Array<Decoration>} decorations
  * @access private
  */
-function drawBackDecorationsForLines(firstRow: number, lastRow: number, offsetRow: number, renderData: {  }, lineHeight: number, editorElement: TextEditorElement, decorations: Array<Decoration>) {
+function drawBackDecorationsForLines(
+  firstRow: number,
+  lastRow: number,
+  offsetRow: number,
+  renderData: {},
+  lineHeight: number,
+  editorElement: TextEditorElement,
+  decorations: Array<Decoration>
+) {
   if (firstRow > lastRow) {
     return
   }
@@ -1186,7 +1225,13 @@ function getDecorationColor(decoration: Decoration, editorElement: TextEditorEle
  * @return {Array<Object>} the intact ranges in the rendered region
  * @access private
  */
-function computeIntactRanges(firstRow: number, lastRow: number, changes, offscreenFirstRow: number | null, offscreenLastRow: number | null): Array<{}> {
+function computeIntactRanges(
+  firstRow: number,
+  lastRow: number,
+  changes,
+  offscreenFirstRow: number | null,
+  offscreenLastRow: number | null
+): Array<{}> {
   // TODO when do they get null?
   if (offscreenFirstRow == null && offscreenLastRow == null) {
     return []

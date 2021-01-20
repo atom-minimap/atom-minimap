@@ -74,7 +74,6 @@ class MinimapQuickSettingsElement {
       Main.onDidDeactivatePlugin(({ name, plugin }) => {
         return this.deactivateItem(name, plugin)
       }),
-
       atom.commands.add("minimap-quick-settings", {
         "core:move-up": () => {
           this.selectPreviousItem()
@@ -95,28 +94,24 @@ class MinimapQuickSettingsElement {
           this.toggleSelectedItem()
         },
       }),
-
       this.subscribeTo(this.codeHighlights, {
         mousedown: (e) => {
           e.preventDefault()
           atom.config.set("minimap.displayCodeHighlights", !this.minimap.displayCodeHighlights)
         },
       }),
-
       this.subscribeTo(this.absoluteMode, {
         mousedown: (e) => {
           e.preventDefault()
           atom.config.set("minimap.absoluteMode", !atom.config.get("minimap.absoluteMode"))
         },
       }),
-
       this.subscribeTo(this.adjustAbsoluteModeHeight, {
         mousedown: (e) => {
           e.preventDefault()
           atom.config.set("minimap.adjustAbsoluteModeHeight", !atom.config.get("minimap.adjustAbsoluteModeHeight"))
         },
       }),
-
       this.subscribeTo(
         this.hiddenInput,
         {
@@ -126,33 +121,27 @@ class MinimapQuickSettingsElement {
         },
         { passive: true }
       ),
-
       this.subscribeTo(this.onLeftButton, {
         mousedown: (e) => {
           e.preventDefault()
           atom.config.set("minimap.displayMinimapOnLeft", true)
         },
       }),
-
       this.subscribeTo(this.onRightButton, {
         mousedown: (e) => {
           e.preventDefault()
           atom.config.set("minimap.displayMinimapOnLeft", false)
         },
       }),
-
       atom.config.observe("minimap.displayCodeHighlights", (bool) => {
         this.codeHighlights.classList.toggle("active", bool)
       }),
-
       atom.config.observe("minimap.absoluteMode", (bool) => {
         this.absoluteMode.classList.toggle("active", bool)
       }),
-
       atom.config.observe("minimap.adjustAbsoluteModeHeight", (bool) => {
         this.adjustAbsoluteModeHeight.classList.toggle("active", bool)
       }),
-
       atom.config.observe("minimap.displayMinimapOnLeft", (bool) => {
         this.onLeftButton.classList.toggle("selected", bool)
         this.onRightButton.classList.toggle("selected", !bool)

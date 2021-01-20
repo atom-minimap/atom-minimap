@@ -64,6 +64,7 @@ export default class Minimap {
      * @access private
      */
     this.standAlone = options.standAlone
+
     /**
      * The width of the current Minimap.
      *
@@ -71,6 +72,7 @@ export default class Minimap {
      * @access private
      */
     this.width = options.width
+
     /**
      * The height of the current Minimap.
      *
@@ -78,6 +80,7 @@ export default class Minimap {
      * @access private
      */
     this.height = options.height
+
     /**
      * The id of the current Minimap.
      *
@@ -85,6 +88,7 @@ export default class Minimap {
      * @access private
      */
     this.id = nextModelId++
+
     /**
      * The events emitter of the current Minimap.
      *
@@ -92,6 +96,7 @@ export default class Minimap {
      * @access private
      */
     this.emitter = new Emitter()
+
     /**
      * The Minimap's subscriptions.
      *
@@ -99,6 +104,7 @@ export default class Minimap {
      * @access private
      */
     this.subscriptions = new CompositeDisposable()
+
     /**
      * The adapter object leverage the access to several properties from
      * the `TextEditor`/`TextEditorElement` to support the different APIs
@@ -108,6 +114,7 @@ export default class Minimap {
      * @access private
      */
     this.adapter = null
+
     /**
      * The char height of the current Minimap, will be `undefined` unless
      * `setCharWidth` is called.
@@ -116,6 +123,7 @@ export default class Minimap {
      * @access private
      */
     this.charHeight = null
+
     /**
      * The char height from the package's configuration. Will be overriden
      * by the instance value.
@@ -124,6 +132,7 @@ export default class Minimap {
      * @access private
      */
     this.configCharHeight = null
+
     /**
      * The char width of the current Minimap, will be `undefined` unless
      * `setCharWidth` is called.
@@ -132,6 +141,7 @@ export default class Minimap {
      * @access private
      */
     this.charWidth = null
+
     /**
      * The char width from the package's configuration. Will be overriden
      * by the instance value.
@@ -140,6 +150,7 @@ export default class Minimap {
      * @access private
      */
     this.configCharWidth = null
+
     /**
      * The interline of the current Minimap, will be `undefined` unless
      * `setCharWidth` is called.
@@ -148,6 +159,7 @@ export default class Minimap {
      * @access private
      */
     this.interline = null
+
     /**
      * The interline from the package's configuration. Will be overriden
      * by the instance value.
@@ -156,6 +168,7 @@ export default class Minimap {
      * @access private
      */
     this.configInterline = null
+
     /**
      * The devicePixelRatioRounding of the current Minimap, will be
      * `undefined` unless `setDevicePixelRatioRounding` is called.
@@ -164,6 +177,7 @@ export default class Minimap {
      * @access private
      */
     this.devicePixelRatioRounding = null
+
     /**
      * The devicePixelRatioRounding from the package's configuration.
      * Will be overriden by the instance value.
@@ -172,6 +186,7 @@ export default class Minimap {
      * @access private
      */
     this.configDevicePixelRatioRounding = null
+
     /**
      * A number of milliseconds which determines how often the minimap should redraw itself after
      * detecting changes in the text editor. A value of 0 will cause the minimap to redraw
@@ -181,6 +196,7 @@ export default class Minimap {
      * @access private
      */
     this.redrawDelay = 0
+
     /**
      * A boolean value to store whether this Minimap have been destroyed or not.
      *
@@ -188,6 +204,7 @@ export default class Minimap {
      * @access private
      */
     this.destroyed = false
+
     /**
      * A boolean value to store whether the `scrollPastEnd` setting is enabled
      * or not.
@@ -238,7 +255,6 @@ export default class Minimap {
 
     this.subscriptions.add(
       configSubscription,
-
       this.textEditor.onDidChangeGrammar(() => {
         this.subscriptions.remove(configSubscription)
         configSubscription.dispose()
@@ -246,7 +262,6 @@ export default class Minimap {
         configSubscription = this.subscribeToConfig()
         this.subscriptions.add(configSubscription)
       }),
-
       this.adapter.onDidChangeScrollTop(() => {
         if (!this.standAlone && !this.ignoreTextEditorScroll && !this.inChangeScrollTop) {
           this.inChangeScrollTop = true
@@ -259,31 +274,27 @@ export default class Minimap {
           this.ignoreTextEditorScroll = false
         }
       }),
-
       this.adapter.onDidChangeScrollLeft(() => {
         if (!this.standAlone) {
           this.emitter.emit("did-change-scroll-left", this)
         }
       }),
-
       this.textEditor.onDidChange((changes) => {
         this.scheduleChanges(changes)
       }),
-
       this.textEditor.onDidDestroy(() => {
         if (editorsMinimaps) {
           editorsMinimaps.delete(this.textEditor)
         }
         this.destroy()
       }),
-
       /*
-      FIXME Some changes occuring during the tokenization produces
-      ranges that deceive the canvas rendering by making some
-      lines at the end of the buffer intact while they are in fact not,
-      resulting in extra lines appearing at the end of the minimap.
-      Forcing a whole repaint to fix that bug is suboptimal but works.
-      */
+    FIXME Some changes occuring during the tokenization produces
+    ranges that deceive the canvas rendering by making some
+    lines at the end of the buffer intact while they are in fact not,
+    resulting in extra lines appearing at the end of the minimap.
+    Forcing a whole repaint to fix that bug is suboptimal but works.
+    */
       this.textEditor.onDidTokenize(() => {
         this.emitter.emit("did-change-config")
       })
@@ -387,7 +398,7 @@ export default class Minimap {
    *   after the change
    * @return {Disposable} a disposable to stop listening to the event
    */
-  onDidChange(callback: (event:Object) => void): Disposable {
+  onDidChange(callback: (event: { [key: string]: any }) => void): Disposable {
     return this.emitter.on("did-change", callback)
   }
 
@@ -482,39 +493,31 @@ export default class Minimap {
         this.adapter.scrollPastEnd = this.scrollPastEnd
         this.emitter.emit("did-change-config")
       }),
-
       atom.config.observe("minimap.charHeight", opts, (configCharHeight) => {
         this.configCharHeight = configCharHeight
         this.updateScrollTop()
         this.emitter.emit("did-change-config")
       }),
-
       atom.config.observe("minimap.charWidth", opts, (configCharWidth) => {
         this.configCharWidth = configCharWidth
         this.updateScrollTop()
         this.emitter.emit("did-change-config")
       }),
-
       atom.config.observe("minimap.interline", opts, (configInterline) => {
         this.configInterline = configInterline
         this.updateScrollTop()
         this.emitter.emit("did-change-config")
       }),
-
       atom.config.observe("minimap.independentMinimapScroll", opts, (independentMinimapScroll) => {
         this.independentMinimapScroll = independentMinimapScroll
         this.updateScrollTop()
       }),
-
       atom.config.observe("minimap.scrollSensitivity", opts, (scrollSensitivity) => {
         this.scrollSensitivity = scrollSensitivity
       }),
-
       atom.config.observe("minimap.redrawDelay", opts, (redrawDelay) => {
         this.redrawDelay = redrawDelay
-      }),
-      // cdprr is shorthand for configDevicePixelRatioRounding
-
+      }), // cdprr is shorthand for configDevicePixelRatioRounding
       atom.config.observe("minimap.devicePixelRatioRounding", opts, (cdprr) => {
         this.configDevicePixelRatioRounding = cdprr
         this.updateScrollTop()
@@ -1083,7 +1086,7 @@ export default class Minimap {
    * @param  {Object} changes a change to dispatch
    * @access private
    */
-  emitChanges(changes: {  }) {
+  emitChanges(changes: {}) {
     this.emitter.emit("did-change", changes)
   }
 
